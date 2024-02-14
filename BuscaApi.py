@@ -19,11 +19,6 @@ def insere_sql():
     contagem = 0 
     data_atual =  str(date.today() + timedelta(days=1))
     dia_anterior = str(date.today() - timedelta(days=28))
-
-    
-    # Faz a requisicao na Api do movidesk para buscar as inforamçoes em json e transforma em texto 
-    # https://api.movidesk.com/public/v1/tickets?token=73f708b7-ad67-41e2-bca8-9ad6e8f75374&$select=category,serviceFirstLevel,serviceSecondLevel,serviceThirdLevel,status,createdDate,resolvedIn,closedIn,id&$expand=owner,statusHistories,ownerHistories($expand=owner),clients($expand=organization),customfieldvalues($filter=customfieldid%20eq%2026295;$select=customFieldId,customFieldRuleId;$expand=items($select=customFieldItem))&$filter=createdDate%20ge%202020-11-09T00:00:00.00z%20and%20createdDate%20le%202020-11-12T00:00:00.00z
-   
     
     api = requests.get('https://api.movidesk.com/public/v1/tickets?token=$select=category,serviceFirstLevel,serviceSecondLevel,serviceThirdLevel,status,createdDate,resolvedIn,closedIn,id&$expand=owner,statusHistories,ownerHistories($expand=owner),clients($expand=organization),customfieldvalues($filter=customfieldid%20eq%2026295;$select=customFieldId,customFieldRuleId;$expand=items($select=customFieldItem))&$filter=createdDate%20ge%20'+ dia_anterior +'T00:00:00.00z%20and%20createdDate%20le%20' + data_atual +'T00:00:00.00z')
     dados = json.loads(api.text)
